@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
+import { Lato } from 'next/font/google'
 import "./globals.css";
+
+const lato = Lato({
+  weight: ['300', '400', '700'],
+  subsets: ['latin'],
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   title: "VerifyID",
@@ -12,7 +19,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={lato.className}>
       <body
         className={`antialiased`}
       >
