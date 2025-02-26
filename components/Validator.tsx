@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import { CheckCircle, XCircle } from "lucide-react";
+import React, { useState, useRef } from "react";
+import { CheckCircle, XCircle, ArrowDownCircle } from "lucide-react";
 
 const Validator = () => {
   const [idNumber, setIdNumber] = useState("");
@@ -15,6 +15,15 @@ const Validator = () => {
     gender: string;
     citizenship: string;
   } | null>(null);
+
+  const explanationRef = useRef<HTMLDivElement | null>(null);
+
+  const scrollToExplanation = () => {
+    window.scrollBy({
+      top: window.innerHeight,
+      behavior: "smooth",
+    });
+  };
 
   const isValidID = (id: string | any[]) => {
     let sum = 0;
@@ -60,7 +69,7 @@ const Validator = () => {
     setHasValidated(true);
 
     if (idNumber.length !== 13) {
-      setValidationResult({ status: "invalid", message: "Invalid ID: Must be 13 digits." });
+      setValidationResult({ status: "invalid", message: "INVALID" });
       setDetails(null);
       return;
     }
@@ -76,7 +85,7 @@ const Validator = () => {
 
   return (
     <div className="w-full container mx-auto">
-      <div className="flex flex-col justify-center items-center mt-24 mx-8 lg:mt-32">
+      <div className="flex flex-col justify-center items-center mt-32 mx-8 lg:mt-64">
         <div className="flex flex-col gap-6 justify-center items-center tracking-widest">
           <h1 className="text-4xl text-white font-medium md:text-5xl lg:text-7xl text-center leading-tight">
             Validate South African ID Numbers
@@ -88,7 +97,8 @@ const Validator = () => {
         <div className="w-full flex flex-col bg-primary rounded-md mx-8 mt-20 md:mt-32 max-w-[700px]">
           <form className="flex flex-col space-y-8 justify-center items-center p-8 md:p-12 lg:p-16" onSubmit={(e) => e.preventDefault()}>
             <input
-              type="text"
+              type="tel"
+              inputMode="numeric"
               placeholder="Enter ID Number"
               value={idNumber}
               onChange={(e) => {
@@ -117,11 +127,13 @@ const Validator = () => {
           </form>
         </div>
         {hasValidated && (
-          <div className="w-full max-w-[700px] bg-secondary">
+          <div className="flex flex-col text-center w-full max-w-[700px] bg-secondary">
             {validationResult.status && (
               <div className={`w-full mx-auto text-center text-5xl font-extrabold p-3 ${validationResult.status === "valid" ? "text-accent" : "text-red-600"}`}>
-                {validationResult.status === "valid" ? <CheckCircle size={48} className="inline-block" /> : <XCircle size={48} className="inline-block" />}{" "}
-                {validationResult.message}
+                <div className="flex justify-center items-center gap-2">
+                  {validationResult.status === "valid" ? <CheckCircle size={48} /> : <XCircle size={48} />}
+                  <span>{validationResult.message}</span>
+                </div>
               </div>
             )}
             {details && (
@@ -134,6 +146,13 @@ const Validator = () => {
           </div>
         )}
       </div>
+      <div className="absolute bottom-10 left-[50%] translate-x-[-50%] lg:bottom-16 cursor-pointer">
+        <div className="flex justify-center items-center flex-col" onClick={scrollToExplanation}>
+          <p className="text-xl text-gray-500 lg:text-2xl">How it works</p>
+          <ArrowDownCircle size='100%' className="text-gray-500 mt-4 w-8 h-8  lg:w-12 lg:h-12" />
+        </div>
+      </div>
+      <div ref={explanationRef}></div>
     </div>
   );
 };
