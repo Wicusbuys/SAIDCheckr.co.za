@@ -8,10 +8,10 @@ const Explanation = () => {
         <div className="flex flex-col justify-center items-center text-center pb-24">
           <div className="space-y-6 px-6 pt-24 lg:space-y-10">
             <h1 className="text-white text-4xl font-bold lg:text-6xl">
-              How does VerifyID validate ID numbers?
+              How does SAIDCheckr validate ID numbers?
             </h1>
             <p className="text-slate-300 text-lg lg:text-3xl">
-              VerifyID validates South African ID numbers directly in your
+              SAIDCheckr validates South African ID numbers directly in your
               browser by applying Luhn&apos;s Algorithm to check if the format
               is correct. However, this process only verifies whether the ID
               follows the correct structure — it does not confirm if the ID is
@@ -170,7 +170,7 @@ const Explanation = () => {
                 </li>
                 <li>
                   <strong className="text-white">SSSS ( 7260 )</strong> :
-                  Citizen's gender (0000-4999 for female, 5000-9999 for male) →
+                  Citizen&apos;s gender (0000-4999 for female, 5000-9999 for male) →
                   Male
                 </li>
                 <li>
@@ -179,7 +179,7 @@ const Explanation = () => {
                 </li>
                 <li>
                   <strong className="text-white">A ( 8 )</strong> : Usually 8
-                  for modern ID's
+                  for modern ID&apos;s
                 </li>
                 <li>
                   <strong className="text-white">Z ( 9 )</strong> : Luhn check

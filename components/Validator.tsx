@@ -25,7 +25,7 @@ const Validator = () => {
     });
   };
 
-  const isValidID = (id: string | any[]) => {
+  const isValidID = (id: string) => {
     let sum = 0;
     let alternate = false;
 
@@ -44,20 +44,29 @@ const Validator = () => {
     return sum % 10 === 0;
   };
 
+  const isValidDate = (year: number, month: number, day: number) => {
+    const date = new Date(year, month - 1, day);
+    return date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day;
+  };
+  
   const extractDetails = (id: string) => {
     const year = parseInt(id.substring(0, 2), 10);
     const month = parseInt(id.substring(2, 4), 10);
     const day = parseInt(id.substring(4, 6), 10);
     const genderCode = parseInt(id.substring(6, 10), 10);
     const citizenshipCode = parseInt(id.substring(10, 11), 10);
-
+  
     const currentYear = new Date().getFullYear();
     const currentYearLastTwo = currentYear % 100;
     const fullYear = year > currentYearLastTwo ? 1900 + year : 2000 + year;
-
+  
+    if (!isValidDate(fullYear, month, day)) {
+      return null;
+    }
+  
     const gender = genderCode >= 5000 ? "Male" : "Female";
     const citizenship = citizenshipCode === 0 ? "SA Citizen" : "Permanent Resident";
-
+  
     return {
       dateOfBirth: `${day.toString().padStart(2, "0")}/${month.toString().padStart(2, "0")}/${fullYear}`,
       gender,

@@ -9,7 +9,7 @@ const lato = Lato({
 })
 
 export const metadata: Metadata = {
-  title: "VerifyID",
+  title: "SAIDCheckr",
   description: "Verify South African ID's",
 };
 
